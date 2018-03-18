@@ -3,76 +3,55 @@
    {
       function __construct()
       {
-         $this->open('test.db');
+         $this->open('itinerary.db');
       }
    }
    $db = new MyDB();
-   if(!$db){
-      echo $db->lastErrorMsg();
-   } else {
-      echo "Opened database successfully\n";
-   }
-
- 
-
 ?>
 
 <center>
  
-   <form  action="" method="POST" enctype="multipart/form-data"> 
+   <form  action="insert.php" method="POST" enctype="multipart/form-data"> 
     <input type="hidden" name="action" value="submit"> 
    
-    Your name:<br> 
-    <input name="name" type="text" value="" size="30"/><br> 
+    Name of event:<br> 
+    <input name="event" type="text" size="30"/><br> 
 
-    Your Age:<br> 
-    <input name="age" type="text" value="" size="30"/><br> 
+    Type of Event:<br> 
+    <input name="type" type="text" size="30"/><br> 
    
-    Your email:<br> 
-    <input name="email" type="text" value="" size="30"/><br> 
+    Date:<br> 
+    <input name="datepicker" type="text" size="30"/><br> 
+
+    Time Start:<br> 
+    <input name="timeStart" type="text" size="30"/><br>
+
+    Time End:<br> 
+    <input name="timeEnd" type="text" size="30"/><br>
 
       
-    Your message:<br> 
+    Comments:<br> 
     <textarea name="message" rows="7" cols="30"></textarea><br><br> 
    
     <input type="submit" value="Submit"/> 
     </form> 
-    
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+   
 </center>
 
  <?php 
 
-    $name=$_REQUEST['name']; 
-    $age=$_REQUEST['age']; 
-    $email=$_REQUEST['email']; 
+    $event=$_REQUEST['event'];
+    $type=$_REQUEST['type'];  
+    $datepicker=$_REQUEST['datepicker'];
+    $timeStart=$_REQUEST['timeStart']; 
+    $timeEnd=$_REQUEST['timeEnd'];   
     $message=$_REQUEST['message']; 
 
 
-   $sql =<<<EOF
-      INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-      VALUES (1, '$name', '$age', '$email', '$message' );
+   $db->exec("INSERT INTO schedule (event, type, datepicker, timeStart, timeEnd, message)
+      VALUES ('$event', '$type', '$datepicker', '$timeStart', '$timeEnd', '$message');") or die(print_r($db->errorInfo(), true));
 
-      
-EOF;
-
-   $ret = $db->exec($sql);
-   if(!$ret){
-    echo $db->lastErrorMsg();
-   } else {
-     echo "Records created successfully\n";
-   }
    $db->close();
+   
+
 ?>

@@ -3,7 +3,7 @@
    {
       function __construct()
       {
-         $this->open('test.db');
+         $this->open('itinerary.db');
       }
    }
    $db = new MyDB();
@@ -14,12 +14,13 @@
    }
 
    $sql =<<<EOF
-      CREATE TABLE COMPANY
-      (ID      NOT NULL,
-      NAME           TEXT    NOT NULL,
-      AGE            INT     NOT NULL,
-      ADDRESS        CHAR(50),
-      SALARY         TEXT);
+      CREATE TABLE schedule
+      (event          VARCHAR(255),
+      type            VARCHAR(255),
+      datepicker       DATE,
+      timeStart        VARCHAR(7),
+      timeEnd           VARCHAR(7),
+      message          TEXT);
 EOF;
 
    $ret = $db->exec($sql);

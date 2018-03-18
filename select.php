@@ -3,32 +3,33 @@
    {
       function __construct()
       {
-         $this->open('test.db');
+         $this->open('itinerary.db');
       }
    }
    $db = new MyDB();
-   if(!$db){
-      echo $db->lastErrorMsg();
-   } else {
-      echo "Opened database successfully\n";
-   }
+
+   
 
    $sql =<<<EOF
-      SELECT * from COMPANY;
+      SELECT * from schedule;
 EOF;
 
    $ret = $db->query($sql);
    while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
-      echo "ID = ". $row['ID'] . "\n";
+      
       echo "<br>";
 
       // add the BR tag to print the values in a new line    
       
 
-      echo "NAME = ". $row['NAME'] ."\n";
-      echo "ADDRESS = ". $row['ADDRESS'] ."\n";
-      echo "SALARY =  ".$row['SALARY'] ."\n\n";
+      echo "event: ". $row['event'] ."<br />";
+      echo "type: ". $row['type'] ."<br />";
+      echo "date:  ".$row['datepicker'] ."<br />";
+      echo "start:  ".$row['timeStart'] ."<br />";
+      echo "end:  ".$row['timeEnd'] ."<br />";
+      echo "message:  ".$row['message'] ."<br />";
+      echo "<hr />";
    }
-   echo "Operation done successfully\n";
+  
    $db->close();
 ?>
