@@ -47,11 +47,11 @@
     $timeEnd=$_REQUEST['timeEnd'];   
     $message=$_REQUEST['message']; 
 
-
+if(isset($_POST['submit'])) {
    $db->exec("INSERT INTO schedule (event, type, datepicker, timeStart, timeEnd, message)
       VALUES ('$event', '$type', '$datepicker', '$timeStart', '$timeEnd', '$message');") or die(print_r($db->errorInfo(), true));
 
    $db->close();
-   
+}
 
 ?>
